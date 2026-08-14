@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bharat Ka Amrit Mahotsav - Happy Independence Day</title>
+    <title>Gaurav Se Kaho - Happy Independence Day</title>
     <style>
         * {
             margin: 0;
@@ -16,19 +16,18 @@
             height: 100%;
             overflow: hidden;
             background-color: #000;
-            font-family: 'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Modern Premium Font */
+            /* Premium, patriotic font hierarchy */
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
         }
 
-        /* =========================================
-           --- 1. EPIC INTRO / START OVERLAY ---
-           ========================================= */
+        /* --- 1. PRESTIGIOUS INTRO / START OVERLAY (Improved) --- */
         #start-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Deep cinematic gradient background */
+            /* Deep, dark radial gradient for mystery */
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
             display: flex;
             flex-direction: column;
@@ -38,45 +37,28 @@
             color: #fff;
             cursor: pointer;
             transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
-            overflow: hidden;
+            text-align: center;
+            padding: 20px;
         }
 
-        #start-overlay.fade-out {
+        #start-overlay.hidden {
             opacity: 0;
             visibility: hidden;
         }
 
-        /* Animated Cinematic Smoke/Fog Background */
-        #intro-smoke {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABM/+fIAAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAABhJREFUeNrtwTEBAAAAwiD7p1bGDmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8B45MAAVfVvXkAAAAASUVORK5CYII=') repeat;
-            opacity: 0.03;
-            animation: smokeMove 60s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes smokeMove {
-            from { background-position: 0 0; }
-            to { background-position: 1000px 500px; }
-        }
-
-        /* Ashoka Chakra with Fade-In & Rotate Animation */
-        .intro-chakra {
+        /* Animated Ashoka Chakra SVG */
+        #start-overlay .chakra-container {
             width: 100px;
             height: 100px;
             margin-bottom: 40px;
-            opacity: 0;
-            transform: scale(0.5) rotate(-180deg);
-            animation: chakraEntry 2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.5s, rotateChakra 15s linear infinite 2.5s;
             filter: drop-shadow(0 0 10px rgba(0, 0, 128, 0.5));
+            animation: chakraAppear 1.5s ease-out;
         }
 
-        @keyframes chakraEntry {
-            to { opacity: 0.8; transform: scale(1) rotate(0deg); }
+        .ashoka-chakra-svg {
+            width: 100%;
+            height: 100%;
+            animation: rotateChakra 15s linear infinite;
         }
 
         @keyframes rotateChakra {
@@ -84,158 +66,90 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Split Text Reveal Animation (Saffron & Green) */
-        .intro-title-container {
-            position: relative;
-            margin-bottom: 20px;
-            overflow: hidden;
+        @keyframes chakraAppear {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .intro-title {
+        /* Golden Gradient Text for Title */
+        #start-overlay h1 {
             font-size: 3.5rem;
-            font-weight: 800;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            text-align: center;
-            line-height: 1.2;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 1.5s;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+            /* Majestic Golden Gradient */
+            background: linear-gradient(to bottom, #cf9c49 0%, #f9e1a1 25%, #cf9c49 50%, #f9e1a1 75%, #cf9c49 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            animation: titleAppear 2s ease-out;
         }
 
-        @keyframes fadeIn { to { opacity: 1; } }
-
-        .title-top, .title-bottom {
-            display: block;
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            overflow: hidden;
-            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+        @keyframes titleAppear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .title-top {
-            top: 0;
-            color: #FF9933; /* Saffron */
-            transform: translateY(-100%);
-            animation: titleSlideIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards 1.8s;
-        }
-
-        .title-bottom {
-            bottom: 0;
-            color: #138808; /* Green */
-            transform: translateY(100%);
-            animation: titleSlideIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards 1.8s;
-        }
-
-        @keyframes titleSlideIn { to { transform: translateY(0); } }
-
-        /* A decorative line that glows and expands */
-        .intro-line {
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #FF9933, #FFFFFF, #138808, transparent);
-            margin-bottom: 50px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            animation: lineExpand 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards 2.5s;
-        }
-
-        @keyframes lineExpand { to { width: 300px; } }
 
         /* Subtitle */
-        #start-overlay p {
-            font-size: 1.1rem;
-            color: #888;
-            margin-bottom: 60px;
-            letter-spacing: 2px;
+        #start-overlay p.subtitle {
+            font-size: 1.2rem;
+            color: #b5b5b5;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
             text-transform: uppercase;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 3s;
+            font-weight: 300;
+            animation: subtitleAppear 2.5s ease-out;
         }
 
-        /* Premium Pulsing Play Button */
-        .play-btn-wrapper {
-            position: relative;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 3.5s;
+        @keyframes subtitleAppear {
+            from { opacity: 0; }
+            to { opacity: 0.8; }
         }
 
+        /* Premium Border Button */
         .play-btn {
-            padding: 20px 50px;
-            font-size: 1.4rem;
-            color: #fff;
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            color: #f9e1a1;
             background: transparent;
-            border: none;
+            border: 1px solid #cf9c49;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            z-index: 2;
+            transition: all 0.4s ease;
             position: relative;
+            overflow: hidden;
+            animation: btnAppear 3s ease-out;
         }
 
-        /* Gradient Border for the Button */
-        .play-btn-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            background: linear-gradient(45deg, #FF9933, #138808) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            z-index: 1;
+        @keyframes btnAppear {
+            from { opacity: 0; translateY: 10px; }
+            to { opacity: 1; translateY: 0; }
         }
 
-        /* Pulsing Glow Effect behind the Button */
-        .play-btn-glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #FF9933, #138808);
-            filter: blur(15px);
-            opacity: 0.3;
-            border-radius: 4px;
-            animation: pulseGlow 2s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.05); }
-        }
-
-        .play-btn-wrapper:hover .play-btn {
+        .play-btn:hover {
             color: #000;
-            background: linear-gradient(45deg, #FF9933, #FFFFFF, #138808);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+            background: linear-gradient(45deg, #cf9c49, #f9e1a1);
+            box-shadow: 0 0 25px rgba(207, 156, 73, 0.6);
+            transform: scale(1.05);
         }
 
-        .play-btn-wrapper:hover .play-btn-glow {
-            animation: none;
-            opacity: 0;
-        }
-
-
-        /* =========================================
-           --- MAIN EXPERIENCE CONTAINER ---
-           ========================================= */
+        /* --- Main Experience Container --- */
         .experience-wrapper {
             position: relative;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            display: none; /* Initially hidden */
+            opacity: 0; /* Initially hidden for fade-in */
+            transition: opacity 1.5s ease-in-out;
         }
 
-        /* --- 2. Darker Cinematic Slideshow --- */
+        .experience-wrapper.visible {
+            opacity: 1;
+        }
+
+        /* --- 2. DARKER CINEMATIC SLIDESHOW --- */
         .slideshow-container {
             position: absolute;
             top: 0;
@@ -254,30 +168,30 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 2.5s ease-in-out;
-            /* Ken Burns effect */
-            transform: scale(1.15);
+            transition: opacity 2s ease-in-out;
+            /* Subtle Ken Burns effect */
+            transform: scale(1.05);
         }
 
         .slide.active {
             opacity: 1;
-            animation: kenBurns 10s linear forwards;
+            animation: kenBurns 9s linear forwards;
         }
 
         @keyframes kenBurns {
-            0% { transform: scale(1.15) translate(0, 0); }
-            100% { transform: scale(1) translate(-1.5%, -1.5%); }
+            0% { transform: scale(1.05) translate(0, 0); }
+            100% { transform: scale(1) translate(-1%, -1%); }
         }
 
-        /* Super Dark Cinematic Overlays */
+        /* Darkening Overlays */
         .vignette {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Intense darkness from edges */
-            background: radial-gradient(circle at center, rgba(0,0,0,0) 20%, rgba(0,0,0,0.98) 100%);
+            /* Extra strong darkness from edges */
+            background: radial-gradient(circle at center, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.98) 100%);
             z-index: 3;
             pointer-events: none;
         }
@@ -288,40 +202,42 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.65); /* Increased overall dimming */
+            background-color: rgba(0, 0, 0, 0.6); /* Deeper global dimming */
             z-index: 2;
             pointer-events: none;
         }
 
-        /* --- 3. Stable, Bigger Middle Logo --- */
+        /* --- 3. STABLE, BIGGER MIDDLE LOGO --- */
         .middle-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10; /* Topmost, above particles and slideshow */
+            z-index: 10; /* Above particles and slides */
             display: flex;
             justify-content: center;
             align-items: center;
             pointer-events: none;
+            width: 100%;
+            height: 100%;
         }
 
         .middle-img {
-            /* HUGE Size */
+            /* BIGGER Size */
             max-width: 90vw;
             max-height: 75vh;
             object-fit: contain;
-            filter: drop-shadow(0px 20px 50px rgba(0, 0, 0, 1)) contrast(1.1);
-            /* STABLE: No beat movement, very slow elegant float */
-            animation: elegantFloat 8s ease-in-out infinite;
+            filter: drop-shadow(0px 15px 40px rgba(0, 0, 0, 1));
+            /* STABLE: A very slow, grand gentle float */
+            animation: grandFloat 8s ease-in-out infinite;
         }
 
-        @keyframes elegantFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        @keyframes grandFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.01); }
         }
 
-        /* --- 4. Floating Small Particles (Background) --- */
+        /* --- 4. FLOATING SMALL PARTICLES (Background) --- */
         #particles-bg-canvas {
             position: absolute;
             top: 0;
@@ -330,10 +246,10 @@
             height: 100%;
             z-index: 4; /* Below middle logo, above slides */
             pointer-events: none;
-            opacity: 0.7;
+            opacity: 0.5;
         }
 
-        /* --- 5. Unique Beat Explosion Visualizer --- */
+        /* --- 5. UNIQUE BEAT EXPLOSION VISUALIZER --- */
         #visualizer-canvas {
             position: absolute;
             top: 0;
@@ -343,44 +259,32 @@
             z-index: 5; /* Between particles and logo */
             pointer-events: none;
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Start Overlay (Intro) -->
+    <!-- Start Overlay (Improved Intro) -->
     <div id="start-overlay" onclick="startExperience()">
-        <div id="intro-smoke"></div>
-        
-        <!-- SVG Ashoka Chakra for intro entry -->
-        <svg class="intro-chakra" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="48" stroke="#000080" stroke-width="3" fill="none"/>
-            <circle cx="50" cy="50" r="10" fill="#000080"/>
-            <g stroke="#000080" stroke-width="2">
-                <!-- 24 Spokes simple representation -->
-                <line x1="50" y1="50" x2="50" y2="2"/> <line x1="50" y1="50" x2="50" y2="98"/>
-                <line x1="50" y1="50" x2="2" y2="50"/> <line x1="50" y1="50" x2="98" y2="50"/>
-                <line x1="50" y1="50" x2="14.6" y2="14.6"/> <line x1="50" y1="50" x2="85.4" y2="85.4"/>
-                <line x1="50" y1="50" x2="14.6" y2="85.4"/> <line x1="50" y1="50" x2="85.4" y2="14.6"/>
-            </g>
-        </svg>
-
-        <div class="intro-title-container">
-            <!-- Normal text as base -->
-            <div class="intro-title">स्वतंत्रता दिवस</div>
-            <!-- Split animated overlays -->
-            <div class="intro-title title-top">स्वतंत्रता दिवस</div>
-            <div class="intro-title title-bottom">स्वतंत्रता दिवस</div>
+        <div class="chakra-container">
+            <!-- SVG Ashoka Chakra for intro -->
+            <svg class="ashoka-chakra-svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" stroke="#000080" stroke-width="2" fill="none"/>
+                <circle cx="50" cy="50" r="8" fill="#000080"/>
+                <g stroke="#000080" stroke-width="1.5">
+                    <line x1="50" y1="50" x2="50" y2="2"/>
+                    <line x1="50" y1="50" x2="50" y2="98"/>
+                    <line x1="50" y1="50" x2="2" y2="50"/>
+                    <line x1="50" y1="50" x2="98" y2="50"/>
+                    <!-- Simple spokes representation -->
+                    <line x1="50" y1="50" x2="16" y2="16"/><line x1="50" y1="50" x2="84" y2="84"/>
+                    <line x1="50" y1="50" x2="84" y2="16"/><line x1="50" y1="50" x2="16" y2="84"/>
+                </g>
+            </svg>
         </div>
-
-        <div class="intro-line"></div>
-
-        <p>गर्व और सम्मान के साथ</p>
-        
-        <div class="play-btn-wrapper">
-            <div class="play-btn-glow"></div>
-            <div class="play-btn-border"></div>
-            <button class="play-btn">प्रारंभ करें</button>
-        </div>
+        <h1>स्वतंत्रता दिवस</h1>
+        <p class="subtitle">An Immersive Experience</p>
+        <button class="play-btn">Click to Begin</button>
     </div>
 
     <!-- Background Audio -->
@@ -415,7 +319,7 @@
     <script>
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
-        const slideDuration = 8000; // 8 seconds per slide for slower, more cinematic feel
+        const slideDuration = 8000; // 8 seconds per slide for slower feel
 
         function changeSlide() {
             slides[currentSlide].classList.remove('active');
@@ -428,18 +332,19 @@
             const wrapper = document.getElementById('main-wrapper');
             const audio = document.getElementById('bg-audio');
 
-            // Epic Fade-out Intro
-            overlay.classList.add('fade-out');
+            // 1. Fade out overlay
+            overlay.classList.add('hidden');
 
+            // 2. Fade in main content after a short delay
             setTimeout(() => {
-                wrapper.style.display = 'block';
+                wrapper.classList.add('visible');
+
+                // Start Audio
+                audio.play().catch(e => console.log("Audio error:", e));
 
                 // Start Slideshow
                 slides[0].classList.add('active');
                 setInterval(changeSlide, slideDuration);
-
-                // Start Audio
-                audio.play().catch(e => console.log("Audio error. Autoplay blocked. Try user interaction first.", e));
 
                 // Initialize Background Particles
                 initBackgroundParticles();
@@ -447,13 +352,13 @@
                 // Initialize Unique Beat Explosion
                 initBeatExplosion(audio);
 
-            }, 1200); // Sync with overlay fade-out duration
+            }, 800);
         }
 
-        /* --- 4. Background Floating Particles Logic (Saffron, White, Green hints) --- */
+        /* --- 4. Background Floating Particles Logic --- */
         function initBackgroundParticles() {
             const canvas = document.getElementById('particles-bg-canvas');
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('particles-bg-canvas').getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -463,15 +368,14 @@
             });
 
             const particles = [];
-            const particleCount = 120;
-            const colors = ['#fff', '#FFD700', '#FF9933', '#138808']; // Saffron, Green hints added
+            const particleCount = 120; // Slightly more particles
 
             for (let i = 0; i < particleCount; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.8 + 0.5,
-                    color: colors[Math.floor(Math.random() * colors.length)],
+                    radius: Math.random() * 1.8 + 0.3,
+                    color: Math.random() > 0.4 ? '#fff' : '#f9e1a1', // White or Pale Gold
                     vx: (Math.random() - 0.5) * 0.25,
                     vy: (Math.random() - 0.5) * 0.25
                 });
@@ -479,7 +383,7 @@
 
             function drawParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.globalCompositeOperation = 'lighter'; // Particles glow when they overlap
+                ctx.globalCompositeOperation = 'lighter';
 
                 particles.forEach(p => {
                     ctx.beginPath();
@@ -487,11 +391,11 @@
                     ctx.fillStyle = p.color;
                     ctx.fill();
 
-                    // Move particles slowly
+                    // Move particles
                     p.x += p.vx;
                     p.y += p.vy;
 
-                    // Boundary wrap-around
+                    // Boundary check (wrap around)
                     if (p.x < 0) p.x = canvas.width;
                     if (p.x > canvas.width) p.x = 0;
                     if (p.y < 0) p.y = canvas.height;
@@ -503,10 +407,10 @@
             drawParticles();
         }
 
-        /* --- 5. Unique Beat Explosion Logic (Behind Logo) --- */
+        /* --- 5. Unique Beat Explosion Logic --- */
         function initBeatExplosion(audioElement) {
             const canvas = document.getElementById('visualizer-canvas');
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('visualizer-canvas').getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -515,7 +419,6 @@
                 canvas.height = window.innerHeight;
             });
 
-            // Web Audio API Context
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             const audioCtx = new AudioContext();
             const analyser = audioCtx.createAnalyser();
@@ -523,12 +426,13 @@
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
 
-            analyser.fftSize = 64; // Small fftSize is good for bass/beat detection
+            analyser.fftSize = 64; // Small fftSize for base detection
             const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
 
             const explosionParticles = [];
-            const tricolor = ['#FF9933', '#FFFFFF', '#138808']; // Saffron, White, Green
+            // Flag Tricolor: Saffron, White, Green
+            const tricolor = ['#FF9933', '#FFFFFF', '#138808'];
 
             class ExplosionParticle {
                 constructor(x, y, color) {
@@ -536,12 +440,10 @@
                     this.y = y;
                     this.color = color;
                     this.angle = Math.random() * Math.PI * 2;
-                    // Explosion force from logo center
-                    this.speed = Math.random() * 10 + 3;
-                    this.radius = Math.random() * 3.5 + 1.2;
+                    this.speed = Math.random() * 10 + 3; // Slightly faster explosion
+                    this.radius = Math.random() * 3.5 + 1;
                     this.alpha = 1;
-                    // Particle fades out over time
-                    this.decay = Math.random() * 0.015 + 0.008;
+                    this.decay = Math.random() * 0.025 + 0.015; // Fade out speed
                     this.vx = Math.cos(this.angle) * this.speed;
                     this.vy = Math.sin(this.angle) * this.speed;
                 }
@@ -559,58 +461,52 @@
                 update() {
                     this.x += this.vx;
                     this.y += this.vy;
-                    // Add friction so particles slow down
-                    this.vx *= 0.95;
+                    this.vx *= 0.95; // Friction
                     this.vy *= 0.95;
                     this.alpha -= this.decay;
                 }
             }
 
-            // Function to create a tricolor explosion from center
             function triggerExplosion() {
                 const centerX = canvas.width / 2;
                 const centerY = canvas.height / 2;
-                for (let i = 0; i < 40; i++) { // More particles per beat
+                for (let i = 0; i < 40; i++) { // More particles per explosion
                     const color = tricolor[Math.floor(Math.random() * tricolor.length)];
                     explosionParticles.push(new ExplosionParticle(centerX, centerY, color));
                 }
             }
 
             let lastBeatTime = 0;
-            // Beat threshold depends heavily on the song. Adjust as needed.
-            const beatThreshold = 215; 
+            const beatThreshold = 215; // Adjust based on song's bass level
 
             function drawBeatExplosion() {
                 requestAnimationFrame(drawBeatExplosion);
                 analyser.getByteFrequencyData(dataArray);
 
-                // Analyze low frequency bins (0-4 generally hold bass/beats)
+                // Analyze low frequencies (bass)
                 let sumLow = 0;
-                for(let i=0; i<4; i++) { sumLow += dataArray[i]; }
+                for(let i=0; i<4; i++) { sumLow += dataArray[i]; } // Focus on very low bass
                 const avgLow = sumLow / 4;
 
                 const currentTime = Date.now();
-                // Check if avg bass level exceeds threshold and isn't too close to the last beat
-                if (avgLow > beatThreshold && currentTime - lastBeatTime > 280) {
+                if (avgLow > beatThreshold && currentTime - lastBeatTime > 280) { // Throttling
                     triggerExplosion();
                     lastBeatTime = currentTime;
                 }
 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.globalCompositeOperation = 'lighter'; // Particles glow together
+                ctx.globalCompositeOperation = 'lighter'; // Particles blend beautifully
 
-                // Update and draw each particle, removing dead ones
                 for (let i = explosionParticles.length - 1; i >= 0; i--) {
                     const p = explosionParticles[i];
                     p.update();
                     p.draw();
                     if (p.alpha <= 0) {
-                        explosionParticles.splice(i, 1);
+                        explosionParticles.splice(i, 1); // Remove faded particles
                     }
                 }
             }
             
-            // Resume AudioContext on first click (handled by overlay click)
             if (audioCtx.state === 'suspended') { audioCtx.resume(); }
             drawBeatExplosion();
         }
