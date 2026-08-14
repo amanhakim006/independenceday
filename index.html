@@ -16,140 +16,155 @@
             height: 100%;
             overflow: hidden;
             background-color: #000;
-            /* Premium, patriotic font hierarchy */
-            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-family: 'Times New Roman', Times, serif;
+            color: #fff;
+            opacity: 0; /* Pure Page Fade-in */
+            animation: pageFadeIn 1.5s forwards;
         }
 
-        /* --- 1. PRESTIGIOUS INTRO / START OVERLAY (Improved) --- */
-        #start-overlay {
+        @keyframes pageFadeIn {
+            to { opacity: 1; }
+        }
+
+        /* --- 1. Improved Intro/Start Overlay (Curtain Effect) --- */
+        #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Deep, dark radial gradient for mystery */
+            z-index: 1000;
+            display: flex;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1); /* Curtain unroll duration */
+        }
+
+        #intro-overlay.off {
+            transform: translateY(-100%); /* Move the whole container away after curtains open */
+        }
+
+        /* The two curtain halves */
+        .curtain-half {
+            width: 50%;
+            height: 100%;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            position: absolute;
+            top: 0;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            color: #fff;
-            cursor: pointer;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+            overflow: hidden; /* Keep content inside during animation */
+        }
+
+        .curtain-left {
+            left: 0;
+            border-right: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .curtain-right {
+            right: 0;
+            border-left: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        /* Curtain Opening Animation */
+        #intro-overlay.open .curtain-left {
+            transform: translateX(-100%);
+        }
+        #intro-overlay.open .curtain-right {
+            transform: translateX(100%);
+        }
+
+        /* Center Content (wrapper needed because of curtain split) */
+        .intro-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            z-index: 1001; /* Above curtains initially */
+            transition: opacity 0.5s ease;
         }
 
-        #start-overlay.hidden {
-            opacity: 0;
-            visibility: hidden;
+        #intro-overlay.open .intro-content {
+            opacity: 0; /* Fade out content while curtains open */
         }
 
-        /* Animated Ashoka Chakra SVG */
-        #start-overlay .chakra-container {
+        /* Unique 3D Ashoka Chakra for intro */
+        .ashoka-chakra-3d {
             width: 100px;
             height: 100px;
             margin-bottom: 40px;
-            filter: drop-shadow(0 0 10px rgba(0, 0, 128, 0.5));
-            animation: chakraAppear 1.5s ease-out;
+            opacity: 0.8;
+            transform-style: preserve-3d;
+            animation: rotateChakra3D 12s linear infinite;
         }
 
-        .ashoka-chakra-svg {
-            width: 100%;
-            height: 100%;
-            animation: rotateChakra 15s linear infinite;
+        @keyframes rotateChakra3D {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
 
-        @keyframes rotateChakra {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes chakraAppear {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Golden Gradient Text for Title */
-        #start-overlay h1 {
+        .intro-content h1 {
             font-size: 3.5rem;
-            font-weight: bold;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 5px;
-            margin-bottom: 15px;
-            /* Majestic Golden Gradient */
-            background: linear-gradient(to bottom, #cf9c49 0%, #f9e1a1 25%, #cf9c49 50%, #f9e1a1 75%, #cf9c49 100%);
+            /* Premium Gold/Tricolor Gradient */
+            background: linear-gradient(180deg, #FF9933 10%, #FFFFFF 50%, #138808 90%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-            animation: titleAppear 2s ease-out;
+            /* Light Outer Glow */
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* For depth where gradient is white */
         }
 
-        @keyframes titleAppear {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Subtitle */
-        #start-overlay p.subtitle {
-            font-size: 1.2rem;
-            color: #b5b5b5;
-            letter-spacing: 3px;
+        .intro-content p {
+            font-size: 1.3rem;
+            color: #ccc;
             margin-bottom: 50px;
-            text-transform: uppercase;
-            font-weight: 300;
-            animation: subtitleAppear 2.5s ease-out;
+            letter-spacing: 2px;
+            font-style: italic;
         }
 
-        @keyframes subtitleAppear {
-            from { opacity: 0; }
-            to { opacity: 0.8; }
-        }
-
-        /* Premium Border Button */
         .play-btn {
-            padding: 18px 50px;
-            font-size: 1.1rem;
-            color: #f9e1a1;
+            padding: 20px 60px;
+            font-size: 1.4rem;
+            color: #fff;
             background: transparent;
-            border: 1px solid #cf9c49;
+            border: 2px solid;
+            /* Border gradient */
+            border-image: linear-gradient(45deg, #FF9933, #FFFFFF, #138808) 1;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 3px;
             transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            animation: btnAppear 3s ease-out;
-        }
-
-        @keyframes btnAppear {
-            from { opacity: 0; translateY: 10px; }
-            to { opacity: 1; translateY: 0; }
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
 
         .play-btn:hover {
-            color: #000;
-            background: linear-gradient(45deg, #cf9c49, #f9e1a1);
-            box-shadow: 0 0 25px rgba(207, 156, 73, 0.6);
+            /* Full Tricolor Gradient on Hover */
+            background: linear-gradient(45deg, rgba(255, 153, 51, 0.8), rgba(19, 136, 8, 0.8));
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
             transform: scale(1.05);
         }
 
         /* --- Main Experience Container --- */
-        .experience-wrapper {
+        #experience-wrapper {
             position: relative;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            opacity: 0; /* Initially hidden for fade-in */
-            transition: opacity 1.5s ease-in-out;
+            display: none; /* Initially hidden */
         }
 
-        .experience-wrapper.visible {
-            opacity: 1;
-        }
-
-        /* --- 2. DARKER CINEMATIC SLIDESHOW --- */
+        /* --- Darker Cinematic Slideshow --- */
         .slideshow-container {
             position: absolute;
             top: 0;
@@ -169,17 +184,17 @@
             background-position: center;
             opacity: 0;
             transition: opacity 2s ease-in-out;
-            /* Subtle Ken Burns effect */
-            transform: scale(1.05);
+            /* Ken Burns effect start scale */
+            transform: scale(1.1);
         }
 
         .slide.active {
             opacity: 1;
-            animation: kenBurns 9s linear forwards;
+            animation: kenBurns 8s linear forwards;
         }
 
         @keyframes kenBurns {
-            0% { transform: scale(1.05) translate(0, 0); }
+            0% { transform: scale(1.1) translate(0, 0); }
             100% { transform: scale(1) translate(-1%, -1%); }
         }
 
@@ -190,8 +205,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Extra strong darkness from edges */
-            background: radial-gradient(circle at center, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.98) 100%);
+            /* Stronger darkness from edges */
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.98) 100%);
             z-index: 3;
             pointer-events: none;
         }
@@ -202,42 +217,40 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Deeper global dimming */
+            background-color: rgba(0, 0, 0, 0.55); /* Strong Global dimming */
             z-index: 2;
             pointer-events: none;
         }
 
-        /* --- 3. STABLE, BIGGER MIDDLE LOGO --- */
+        /* --- Stable, Bigger Middle Logo --- */
         .middle-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10; /* Above particles and slides */
+            z-index: 10; /* Above particles and slideshow */
             display: flex;
             justify-content: center;
             align-items: center;
             pointer-events: none;
-            width: 100%;
-            height: 100%;
         }
 
         .middle-img {
             /* BIGGER Size */
-            max-width: 90vw;
+            max-width: 88vw;
             max-height: 75vh;
             object-fit: contain;
-            filter: drop-shadow(0px 15px 40px rgba(0, 0, 0, 1));
-            /* STABLE: A very slow, grand gentle float */
-            animation: grandFloat 8s ease-in-out infinite;
+            filter: drop-shadow(0px 15px 50px rgba(0, 0, 0, 1));
+            /* STABLE: Gentle float only */
+            animation: slowFloat 7s ease-in-out infinite;
         }
 
-        @keyframes grandFloat {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-10px) scale(1.01); }
+        @keyframes slowFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        /* --- 4. FLOATING SMALL PARTICLES (Background) --- */
+        /* --- Floating Small Particles (Background) --- */
         #particles-bg-canvas {
             position: absolute;
             top: 0;
@@ -246,10 +259,10 @@
             height: 100%;
             z-index: 4; /* Below middle logo, above slides */
             pointer-events: none;
-            opacity: 0.5;
+            opacity: 0.6;
         }
 
-        /* --- 5. UNIQUE BEAT EXPLOSION VISUALIZER --- */
+        /* --- Unique Beat Explosion Visualizer --- */
         #visualizer-canvas {
             position: absolute;
             top: 0;
@@ -259,40 +272,47 @@
             z-index: 5; /* Between particles and logo */
             pointer-events: none;
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Start Overlay (Improved Intro) -->
-    <div id="start-overlay" onclick="startExperience()">
-        <div class="chakra-container">
-            <!-- SVG Ashoka Chakra for intro -->
-            <svg class="ashoka-chakra-svg" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="48" stroke="#000080" stroke-width="2" fill="none"/>
+    <!-- Start Overlay (Improved Curtain Intro) -->
+    <div id="intro-overlay">
+        <!-- Center Content -->
+        <div class="intro-content">
+            <!-- SVG Ashoka Chakra for intro with 3D rotation -->
+            <svg class="ashoka-chakra-3d" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" stroke="#000080" stroke-width="1.5" fill="none"/>
                 <circle cx="50" cy="50" r="8" fill="#000080"/>
-                <g stroke="#000080" stroke-width="1.5">
-                    <line x1="50" y1="50" x2="50" y2="2"/>
-                    <line x1="50" y1="50" x2="50" y2="98"/>
-                    <line x1="50" y1="50" x2="2" y2="50"/>
-                    <line x1="50" y1="50" x2="98" y2="50"/>
-                    <!-- Simple spokes representation -->
-                    <line x1="50" y1="50" x2="16" y2="16"/><line x1="50" y1="50" x2="84" y2="84"/>
-                    <line x1="50" y1="50" x2="84" y2="16"/><line x1="50" y1="50" x2="16" y2="84"/>
+                <g stroke="#000080" stroke-width="1">
+                    <!-- Simplified spokes for clarity, representing the 24 -->
+                    <line x1="50" y1="50" x2="50" y2="2"/> <line x1="50" y1="50" x2="50" y2="98"/>
+                    <line x1="50" y1="50" x2="2" y2="50"/> <line x1="50" y1="50" x2="98" y2="50"/>
+                    <line x1="50" y1="50" x2="15" y2="15"/> <line x1="50" y1="50" x2="85" y2="85"/>
+                    <line x1="50" y1="50" x2="15" y2="85"/> <line x1="50" y1="50" x2="85" y2="15"/>
+                    <!-- Simple representation of the rest -->
+                    <line x1="50" y1="50" x2="27" y2="5"/> <line x1="50" y1="50" x2="73" y2="95"/>
+                    <line x1="50" y1="50" x2="5" y2="27"/> <line x1="50" y1="50" x2="95" y2="73"/>
+                    <line x1="50" y1="50" x2="27" y2="95"/> <line x1="50" y1="50" x2="73" y2="5"/>
+                    <line x1="50" y1="50" x2="5" y2="73"/> <line x1="50" y1="50" x2="95" y2="27"/>
                 </g>
             </svg>
+            <h1>स्वतंत्रता दिवस</h1>
+            <p>गर्व और सम्मान का एक सिनेमाई अनुभव</p>
+            <button class="play-btn" onclick="openCurtains()">प्रारंभ करें</button>
         </div>
-        <h1>स्वतंत्रता दिवस</h1>
-        <p class="subtitle">An Immersive Experience</p>
-        <button class="play-btn">Click to Begin</button>
+
+        <!-- Curtain Halves -->
+        <div class="curtain-half curtain-left"></div>
+        <div class="curtain-half curtain-right"></div>
     </div>
 
     <!-- Background Audio -->
     <audio id="bg-audio" src="independenceday.mp3" loop></audio>
 
     <!-- Main Experience Container -->
-    <div class="experience-wrapper" id="main-wrapper">
-        <!-- 2. Darker Slideshow -->
+    <div id="experience-wrapper">
+        <!-- Darker Slideshow -->
         <div class="slideshow-container">
             <div class="slide" style="background-image: url('id1.png');"></div>
             <div class="slide" style="background-image: url('id2.png');"></div>
@@ -304,13 +324,13 @@
         <div class="dark-overlay"></div>
         <div class="vignette"></div>
 
-        <!-- 4. Floating Background Particles Canvas -->
+        <!-- Floating Background Particles Canvas -->
         <canvas id="particles-bg-canvas"></canvas>
 
-        <!-- 5. Unique Beat Explosion Canvas -->
+        <!-- Unique Beat Explosion Canvas -->
         <canvas id="visualizer-canvas"></canvas>
 
-        <!-- 3. Stable, Bigger Middle Logo -->
+        <!-- Stable, Bigger Middle Logo -->
         <div class="middle-container">
             <img src="20260814_182718.png" alt="Centerpiece" class="middle-img">
         </div>
@@ -319,7 +339,7 @@
     <script>
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
-        const slideDuration = 8000; // 8 seconds per slide for slower feel
+        const slideDuration = 7000; // 7 seconds per slide
 
         function changeSlide() {
             slides[currentSlide].classList.remove('active');
@@ -327,38 +347,35 @@
             slides[currentSlide].classList.add('active');
         }
 
-        function startExperience() {
-            const overlay = document.getElementById('start-overlay');
-            const wrapper = document.getElementById('main-wrapper');
+        // Improved Intro Control: Curtain Raiser
+        function openCurtains() {
+            const overlay = document.getElementById('intro-overlay');
+            const wrapper = document.getElementById('experience-wrapper');
             const audio = document.getElementById('bg-audio');
 
-            // 1. Fade out overlay
-            overlay.classList.add('hidden');
+            // 1. Add class to start curtain animation
+            overlay.classList.add('open');
 
-            // 2. Fade in main content after a short delay
+            // 2. Prepare main experience in background
+            wrapper.style.display = 'block';
+            slides[0].classList.add('active');
+            setInterval(changeSlide, slideDuration);
+            initBackgroundParticles();
+            initBeatExplosion(audio);
+
+            // 3. Play Audio immediately on click
+            audio.play().catch(e => console.log("Audio error (usually browser policy):", e));
+
+            // 4. Fully remove overlay container after animation finishes
             setTimeout(() => {
-                wrapper.classList.add('visible');
-
-                // Start Audio
-                audio.play().catch(e => console.log("Audio error:", e));
-
-                // Start Slideshow
-                slides[0].classList.add('active');
-                setInterval(changeSlide, slideDuration);
-
-                // Initialize Background Particles
-                initBackgroundParticles();
-
-                // Initialize Unique Beat Explosion
-                initBeatExplosion(audio);
-
-            }, 800);
+                overlay.classList.add('off'); // Moves it out of view completely
+            }, 1200); // Must match CSS transition time (1.2s)
         }
 
-        /* --- 4. Background Floating Particles Logic --- */
+        /* --- Background Floating Particles Logic --- */
         function initBackgroundParticles() {
             const canvas = document.getElementById('particles-bg-canvas');
-            const ctx = canvas.getContext('particles-bg-canvas').getContext('2d');
+            const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -368,22 +385,22 @@
             });
 
             const particles = [];
-            const particleCount = 120; // Slightly more particles
+            const particleCount = 110;
 
             for (let i = 0; i < particleCount; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.8 + 0.3,
-                    color: Math.random() > 0.4 ? '#fff' : '#f9e1a1', // White or Pale Gold
-                    vx: (Math.random() - 0.5) * 0.25,
-                    vy: (Math.random() - 0.5) * 0.25
+                    radius: Math.random() * 1.6 + 0.4,
+                    color: Math.random() > 0.4 ? '#FFFFFF' : '#FFD700', // White or Gold
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: (Math.random() - 0.5) * 0.35
                 });
             }
 
             function drawParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.globalCompositeOperation = 'lighter';
+                ctx.globalCompositeOperation = 'lighter'; // Particles glow when overlapping
 
                 particles.forEach(p => {
                     ctx.beginPath();
@@ -395,7 +412,7 @@
                     p.x += p.vx;
                     p.y += p.vy;
 
-                    // Boundary check (wrap around)
+                    // Boundary check
                     if (p.x < 0) p.x = canvas.width;
                     if (p.x > canvas.width) p.x = 0;
                     if (p.y < 0) p.y = canvas.height;
@@ -407,10 +424,10 @@
             drawParticles();
         }
 
-        /* --- 5. Unique Beat Explosion Logic --- */
+        /* --- Unique Beat Explosion Logic --- */
         function initBeatExplosion(audioElement) {
             const canvas = document.getElementById('visualizer-canvas');
-            const ctx = canvas.getContext('visualizer-canvas').getContext('2d');
+            const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -419,6 +436,7 @@
                 canvas.height = window.innerHeight;
             });
 
+            // Web Audio API Setup
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             const audioCtx = new AudioContext();
             const analyser = audioCtx.createAnalyser();
@@ -426,13 +444,12 @@
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
 
-            analyser.fftSize = 64; // Small fftSize for base detection
+            analyser.fftSize = 64; // Small for responsive bass detection
             const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
 
             const explosionParticles = [];
-            // Flag Tricolor: Saffron, White, Green
-            const tricolor = ['#FF9933', '#FFFFFF', '#138808'];
+            const tricolor = ['#FF9933', '#FFFFFF', '#138808']; // Saffron, White, Green
 
             class ExplosionParticle {
                 constructor(x, y, color) {
@@ -440,10 +457,10 @@
                     this.y = y;
                     this.color = color;
                     this.angle = Math.random() * Math.PI * 2;
-                    this.speed = Math.random() * 10 + 3; // Slightly faster explosion
+                    this.speed = Math.random() * 9 + 3; // Speed of explosion
                     this.radius = Math.random() * 3.5 + 1;
-                    this.alpha = 1;
-                    this.decay = Math.random() * 0.025 + 0.015; // Fade out speed
+                    this.alpha = 1; // Transparency for fade out
+                    this.decay = Math.random() * 0.015 + 0.012; // Decay speed
                     this.vx = Math.cos(this.angle) * this.speed;
                     this.vy = Math.sin(this.angle) * this.speed;
                 }
@@ -461,53 +478,54 @@
                 update() {
                     this.x += this.vx;
                     this.y += this.vy;
-                    this.vx *= 0.95; // Friction
+                    this.vx *= 0.95; // High Friction for rapid slowdown
                     this.vy *= 0.95;
-                    this.alpha -= this.decay;
+                    this.alpha -= this.decay; // Fade out
                 }
             }
 
             function triggerExplosion() {
                 const centerX = canvas.width / 2;
                 const centerY = canvas.height / 2;
-                for (let i = 0; i < 40; i++) { // More particles per explosion
+                for (let i = 0; i < 40; i++) { // Number of particles per beat
                     const color = tricolor[Math.floor(Math.random() * tricolor.length)];
                     explosionParticles.push(new ExplosionParticle(centerX, centerY, color));
                 }
             }
 
             let lastBeatTime = 0;
-            const beatThreshold = 215; // Adjust based on song's bass level
+            const beatThreshold = 215; // Target BASS frequency level
 
             function drawBeatExplosion() {
                 requestAnimationFrame(drawBeatExplosion);
                 analyser.getByteFrequencyData(dataArray);
 
-                // Analyze low frequencies (bass)
+                // Analyze low frequencies (bass) - first few bins
                 let sumLow = 0;
-                for(let i=0; i<4; i++) { sumLow += dataArray[i]; } // Focus on very low bass
+                for(let i=0; i<4; i++) { sumLow += dataArray[i]; }
                 const avgLow = sumLow / 4;
 
                 const currentTime = Date.now();
-                if (avgLow > beatThreshold && currentTime - lastBeatTime > 280) { // Throttling
+                // Trigger if low frequency average is high and enough time passed since last beat
+                if (avgLow > beatThreshold && currentTime - lastBeatTime > 220) {
                     triggerExplosion();
                     lastBeatTime = currentTime;
                 }
 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.globalCompositeOperation = 'lighter'; // Particles blend beautifully
+                ctx.globalCompositeOperation = 'lighter'; // Make explosions bright
 
                 for (let i = explosionParticles.length - 1; i >= 0; i--) {
                     const p = explosionParticles[i];
                     p.update();
                     p.draw();
                     if (p.alpha <= 0) {
-                        explosionParticles.splice(i, 1); // Remove faded particles
+                        explosionParticles.splice(i, 1); // Remove dead particles
                     }
                 }
             }
             
-            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); } // For Chrome policy
             drawBeatExplosion();
         }
 
