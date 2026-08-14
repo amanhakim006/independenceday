@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Svatantrata Divas Mubarak - Premium Experience</title>
+    <title>Gaurav Se Kaho - Happy Independence Day</title>
     <style>
         * {
             margin: 0;
@@ -15,18 +15,18 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #050505; /* Extra dark background */
-            font-family: 'Georgia', serif; /* Classy font */
+            background-color: #000;
+            font-family: 'Times New Roman', Times, serif; /* Premium feel */
         }
 
-        /* START OVERLAY - Premium Intro */
+        /* --- 1. Enhanced Intro/Start Overlay --- */
         #start-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -34,65 +34,71 @@
             z-index: 1000;
             color: #fff;
             cursor: pointer;
-            transition: opacity 1.2s ease-out;
+            transition: opacity 1s ease;
         }
 
-        #start-overlay::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3%3Cfilter id="n"%3%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3%3C/filter%3%3Crect width="100%" height="100%" filter="url(%23n)" opacity="0.05"/%3%3C/svg%3%3E');
-            pointer-events: none;
+        #start-overlay .ashoka-chakra {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 30px;
+            opacity: 0.7;
+            animation: rotateChakra 10s linear infinite;
+        }
+
+        @keyframes rotateChakra {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         #start-overlay h1 {
             font-size: 3rem;
-            font-weight: 400;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            color: #f0f0f0;
-            text-align: center;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            letter-spacing: 3px;
+            background: linear-gradient(180deg, #FF9933 30%, #FFFFFF 50%, #138808 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            text-align: center;
         }
 
         #start-overlay p {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #aaa;
             margin-bottom: 40px;
-            font-style: italic;
+            letter-spacing: 1px;
         }
 
         .play-btn {
             padding: 18px 45px;
-            font-size: 1rem;
-            letter-spacing: 3px;
-            color: #FF9933;
+            font-size: 1.3rem;
+            color: #fff;
             background: transparent;
-            border: 1px solid #FF9933;
-            border-radius: 2px;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #FF9933, #138808) 1;
             cursor: pointer;
-            transition: all 0.4s ease;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 153, 51, 0.2);
         }
 
         .play-btn:hover {
-            background-color: #FF9933;
-            color: #000;
+            background: linear-gradient(45deg, #FF9933, #138808);
             box-shadow: 0 0 30px rgba(255, 153, 51, 0.5);
+            transform: scale(1.05);
         }
 
-        /* MAIN WRAPPER */
-        .main-wrapper {
+        /* --- Main Experience Container --- */
+        .experience-wrapper {
             position: relative;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            display: none; /* Hidden initially */
+            display: none; /* Initially hidden */
         }
 
-        /* CINEMATIC SLIDESHOW */
+        /* --- 2. Darker Cinematic Slideshow --- */
         .slideshow-container {
             position: absolute;
             top: 0;
@@ -111,9 +117,9 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            filter: brightness(30%) contrast(110%) grayscale(20%); /* Much darker, contrasty, slightly desaturated */
             transition: opacity 2s ease-in-out;
-            transform: scale(1.05);
+            /* Ken Burns effect */
+            transform: scale(1.1);
         }
 
         .slide.active {
@@ -122,98 +128,113 @@
         }
 
         @keyframes kenBurns {
-            0% { transform: scale(1.05) translate(0, 0); }
-            100% { transform: scale(1.15) translate(-1%, -0.5%); }
+            0% { transform: scale(1.1) translate(0, 0); }
+            100% { transform: scale(1) translate(-1%, -1%); }
         }
 
-        /* Dark Vignette & Grain Overlay */
-        .overlays {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
+        /* Darkening Overlays */
         .vignette {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.95) 100%);
-        }
-
-        .grain {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3%3Cfilter id="n"%3%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3%3C/filter%3%3Crect width="100%" height="100%" filter="url(%23n)" opacity="0.06"/%3%3C/svg%3%3E');
-        }
-
-        /* BACKGROUND PARTICLES CANVAS */
-        #particles-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            /* Stronger darkness from edges */
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.95) 100%);
             z-index: 3;
             pointer-events: none;
         }
 
-        /* UNIQUE BEAT VISUALIZER: Tricolor Edge Glow */
-        #beat-glow {
+        .dark-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 4;
+            background-color: rgba(0, 0, 0, 0.5); /* Global dimming */
+            z-index: 2;
             pointer-events: none;
-            box-shadow: inset 0 0 0px 0px rgba(255, 153, 51, 0); /* Initial hidden */
-            transition: box-shadow 0.05s linear; /* Fast response */
         }
 
-        /* MIDDLE LOGO - Larger, Stable, Floating */
+        /* --- 3. Stable, Bigger Middle Logo --- */
         .middle-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
+            z-index: 10; /* Above particles and slideshow */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             pointer-events: none;
         }
 
         .middle-img {
-            max-width: 90vw; /* 50% larger than before (was 60vw) */
-            max-height: 75vh; /* 50% larger than before (was 50vh) */
+            /* BIGGER Size */
+            max-width: 85vw;
+            max-height: 70vh;
             object-fit: contain;
             filter: drop-shadow(0px 15px 40px rgba(0, 0, 0, 1));
-            animation: floating 6s ease-in-out infinite; /* Stable floating, no pulsing */
+            /* STABLE: No beat movement, just a slow gentle float */
+            animation: slowFloat 6s ease-in-out infinite;
         }
 
-        @keyframes floating {
+        @keyframes slowFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
+        /* --- 4. Floating Small Particles (Background) --- */
+        #particles-bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4; /* Below middle logo, above slides */
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* --- 5. Unique Beat Explosion Visualizer --- */
+        #visualizer-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; /* Between particles and logo */
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- START OVERLAY -->
+    <!-- Start Overlay (Intro) -->
     <div id="start-overlay" onclick="startExperience()">
-        <p>A Cinematic Tribute</p>
+        <!-- SVG Ashoka Chakra for intro -->
+        <svg class="ashoka-chakra" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" stroke="#000080" stroke-width="2" fill="none"/>
+            <circle cx="50" cy="50" r="8" fill="#000080"/>
+            <g stroke="#000080" stroke-width="1.5">
+                <line x1="50" y1="50" x2="50" y2="2"/>
+                <line x1="50" y1="50" x2="50" y2="98"/>
+                <line x1="50" y1="50" x2="2" y2="50"/>
+                <line x1="50" y1="50" x2="98" y2="50"/>
+                <!-- Add 20 more lines for 24 spokes if desired, keeping it simple for now -->
+            </g>
+        </svg>
         <h1>स्वतंत्रता दिवस</h1>
-        <p>15 August 2026</p>
-        <button class="play-btn">Begin Experience</button>
+        <p>A Cinematic Experience</p>
+        <button class="play-btn">प्रारंभ करें</button>
     </div>
 
     <!-- Background Audio -->
     <audio id="bg-audio" src="independenceday.mp3" loop></audio>
 
-    <!-- Main Container -->
-    <div class="main-wrapper" id="main-content">
-        <!-- Slideshow -->
+    <!-- Main Experience Container -->
+    <div class="experience-wrapper" id="main-wrapper">
+        <!-- 2. Darker Slideshow -->
         <div class="slideshow-container">
             <div class="slide" style="background-image: url('id1.png');"></div>
             <div class="slide" style="background-image: url('id2.png');"></div>
@@ -222,21 +243,18 @@
             <div class="slide" style="background-image: url('id5.png');"></div>
         </div>
 
-        <!-- Static Overlays (Vignette & Grain) -->
-        <div class="overlays">
-            <div class="vignette"></div>
-            <div class="grain"></div>
-        </div>
+        <div class="dark-overlay"></div>
+        <div class="vignette"></div>
 
-        <!-- Moving Particles Background -->
-        <canvas id="particles-canvas"></canvas>
+        <!-- 4. Floating Background Particles Canvas -->
+        <canvas id="particles-bg-canvas"></canvas>
 
-        <!-- Unique Beat Visualizer (Edge Glow) -->
-        <div id="beat-glow"></div>
+        <!-- 5. Unique Beat Explosion Canvas -->
+        <canvas id="visualizer-canvas"></canvas>
 
-        <!-- Middle Centered Stable Image -->
+        <!-- 3. Stable, Bigger Middle Logo -->
         <div class="middle-container">
-            <img src="20260814_182718.png" alt="Middle Centerpiece" class="middle-img">
+            <img src="20260814_182718.png" alt="Centerpiece" class="middle-img">
         </div>
     </div>
 
@@ -253,130 +271,185 @@
 
         function startExperience() {
             const overlay = document.getElementById('start-overlay');
-            const mainContent = document.getElementById('main-content');
+            const wrapper = document.getElementById('main-wrapper');
             const audio = document.getElementById('bg-audio');
 
-            // Fade out overlay, then show content
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
-                mainContent.style.display = 'block';
+                wrapper.style.display = 'block';
 
                 // Start Slideshow
                 slides[0].classList.add('active');
                 setInterval(changeSlide, slideDuration);
 
-                // Start Audio & Visualizers
-                audio.play().catch(e => console.log("Audio play error:", e));
-                initParticleSystem();
-                initUniqueBeatGlow(audio);
-            }, 1200);
+                // Start Audio
+                audio.play().catch(e => console.log("Audio error:", e));
+
+                // Initialize Background Particles
+                initBackgroundParticles();
+
+                // Initialize Unique Beat Explosion
+                initBeatExplosion(audio);
+
+            }, 1000);
         }
 
-        // --- BACKGROUND PARTICLE SYSTEM (Normal Moving, Not tied to Beat) ---
-        function initParticleSystem() {
-            const canvas = document.getElementById('particles-canvas');
+        /* --- 4. Background Floating Particles Logic --- */
+        function initBackgroundParticles() {
+            const canvas = document.getElementById('particles-bg-canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-
-            const particles = [];
-            const particleCount = 150;
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = Math.random() * 0.5 - 0.25; // Slow horizontal drift
-                    this.speedY = Math.random() * 1 + 0.5; // Slow vertical fall
-                    // Golden/White color mix
-                    this.color = Math.random() > 0.5 ? 'rgba(255, 215, 0, 0.6)' : 'rgba(255, 255, 255, 0.5)';
-                }
-                update() {
-                    this.y += this.speedY;
-                    this.x += this.speedX;
-                    // Reset if out of bounds
-                    if (this.y > canvas.height) this.y = -10;
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                }
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                }
-                requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
 
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             });
+
+            const particles = [];
+            const particleCount = 100;
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    color: Math.random() > 0.5 ? '#fff' : '#FFD700', // White or Gold
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3
+                });
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = 'lighter';
+
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+
+                    // Move particles
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Boundary check
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+                });
+
+                requestAnimationFrame(drawParticles);
+            }
+            drawParticles();
         }
 
-        // --- UNIQUE BEAT VISUALIZER (Tricolor Edge Glow) ---
-        function initUniqueBeatGlow(audioElement) {
-            const glowDiv = document.getElementById('beat-glow');
+        /* --- 5. Unique Beat Explosion Logic --- */
+        function initBeatExplosion(audioElement) {
+            const canvas = document.getElementById('visualizer-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-            // Web Audio API Context
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             const audioCtx = new AudioContext();
             const analyser = audioCtx.createAnalyser();
-
             const source = audioCtx.createMediaElementSource(audioElement);
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
 
-            analyser.fftSize = 64; // Small FFT for faster bass detection
+            analyser.fftSize = 64; // Small fftSize for base detection
             const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
 
-            function drawGlow() {
-                requestAnimationFrame(drawGlow);
+            const explosionParticles = [];
+            const tricolor = ['#FF9933', '#FFFFFF', '#138808']; // Saffron, White, Green
+
+            class ExplosionParticle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.color = color;
+                    this.angle = Math.random() * Math.PI * 2;
+                    this.speed = Math.random() * 8 + 2;
+                    this.radius = Math.random() * 3 + 1;
+                    this.alpha = 1;
+                    this.decay = Math.random() * 0.02 + 0.01;
+                    this.vx = Math.cos(this.angle) * this.speed;
+                    this.vy = Math.sin(this.angle) * this.speed;
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.vx *= 0.96; // Friction
+                    this.vy *= 0.96;
+                    this.alpha -= this.decay;
+                }
+            }
+
+            function triggerExplosion() {
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                for (let i = 0; i < 30; i++) {
+                    const color = tricolor[Math.floor(Math.random() * tricolor.length)];
+                    explosionParticles.push(new ExplosionParticle(centerX, centerY, color));
+                }
+            }
+
+            let lastBeatTime = 0;
+            const beatThreshold = 210; // Adjust based on song's bass level
+
+            function drawBeatExplosion() {
+                requestAnimationFrame(drawBeatExplosion);
                 analyser.getByteFrequencyData(dataArray);
 
-                // Analyze Bass frequencies (low index)
-                let bassSum = 0;
-                const bassBins = 8; // Focus on lowest 8 bins
-                for(let i=0; i<bassBins; i++) {
-                    bassSum += dataArray[i];
-                }
-                const averageBass = bassSum / bassBins;
-                const bassIntensity = averageBass / 255; // 0 to 1
+                // Analyze low frequencies (bass)
+                let sumLow = 0;
+                for(let i=0; i<5; i++) { sumLow += dataArray[i]; }
+                const avgLow = sumLow / 5;
 
-                if (bassIntensity > 0.4) { // Threshold for beat
-                    const glowSize = bassIntensity * 80; // Up to 80px glow
-                    // Tricolor Gradient Glow: Saffron -> White -> Green
-                    glowDiv.style.boxShadow = `
-                        inset 0 0 ${glowSize}px ${glowSize/2}px rgba(255, 153, 51, ${bassIntensity}),
-                        inset 0 0 ${glowSize*1.5}px ${glowSize}px rgba(255, 255, 255, ${bassIntensity*0.8}),
-                        inset 0 0 ${glowSize*2}px ${glowSize*1.5}px rgba(19, 136, 8, ${bassIntensity*0.6})
-                    `;
-                } else {
-                    glowDiv.style.boxShadow = 'inset 0 0 0px 0px rgba(0,0,0,0)'; // No glow
+                const currentTime = Date.now();
+                if (avgLow > beatThreshold && currentTime - lastBeatTime > 250) { // Throttling
+                    triggerExplosion();
+                    lastBeatTime = currentTime;
+                }
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = 'lighter';
+
+                for (let i = explosionParticles.length - 1; i >= 0; i--) {
+                    const p = explosionParticles[i];
+                    p.update();
+                    p.draw();
+                    if (p.alpha <= 0) {
+                        explosionParticles.splice(i, 1);
+                    }
                 }
             }
-
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            drawGlow();
+            
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+            drawBeatExplosion();
         }
+
     </script>
 </body>
 </html>
