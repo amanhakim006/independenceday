@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Independence Day</title>
+    <title>Svatantrata Divas Mubarak - Premium Experience</title>
     <style>
         * {
             margin: 0;
@@ -15,18 +15,18 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #000;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #050505; /* Extra dark background */
+            font-family: 'Georgia', serif; /* Classy font */
         }
 
-        /* Start Overlay for Browser Autoplay Policy */
+        /* START OVERLAY - Premium Intro */
         #start-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -34,40 +34,72 @@
             z-index: 1000;
             color: #fff;
             cursor: pointer;
-            transition: opacity 0.8s ease;
+            transition: opacity 1.2s ease-out;
+        }
+
+        #start-overlay::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3%3Cfilter id="n"%3%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3%3C/filter%3%3Crect width="100%" height="100%" filter="url(%23n)" opacity="0.05"/%3%3C/svg%3%3E');
+            pointer-events: none;
         }
 
         #start-overlay h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            color: #f0f0f0;
             text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+
+        #start-overlay p {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 40px;
+            font-style: italic;
         }
 
         .play-btn {
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            color: #fff;
-            background: linear-gradient(45deg, #FF9933, #138808);
-            border: none;
-            border-radius: 50px;
+            padding: 18px 45px;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            color: #FF9933;
+            background: transparent;
+            border: 1px solid #FF9933;
+            border-radius: 2px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 153, 51, 0.6);
-            transition: transform 0.3s;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
         }
 
         .play-btn:hover {
-            transform: scale(1.08);
+            background-color: #FF9933;
+            color: #000;
+            box-shadow: 0 0 30px rgba(255, 153, 51, 0.5);
         }
 
-        /* Fullscreen Cinematic Slideshow */
-        .slideshow-wrapper {
+        /* MAIN WRAPPER */
+        .main-wrapper {
             position: relative;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
+            display: none; /* Hidden initially */
+        }
+
+        /* CINEMATIC SLIDESHOW */
+        .slideshow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
         .slide {
@@ -79,110 +111,139 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 1.8s ease-in-out;
-            transform: scale(1);
+            filter: brightness(30%) contrast(110%) grayscale(20%); /* Much darker, contrasty, slightly desaturated */
+            transition: opacity 2s ease-in-out;
+            transform: scale(1.05);
         }
 
         .slide.active {
             opacity: 1;
-            animation: cinematicZoom 6.5s linear forwards;
+            animation: kenBurns 8s linear forwards;
         }
 
-        @keyframes cinematicZoom {
-            0% {
-                transform: scale(1) translate(0, 0);
-            }
-            100% {
-                transform: scale(1.12) translate(-1%, -1%);
-            }
+        @keyframes kenBurns {
+            0% { transform: scale(1.05) translate(0, 0); }
+            100% { transform: scale(1.15) translate(-1%, -0.5%); }
         }
 
-        /* Dark Vignette Overlay */
-        .vignette {
+        /* Dark Vignette & Grain Overlay */
+        .overlays {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.85) 100%);
-            z-index: 5;
+            z-index: 2;
             pointer-events: none;
         }
 
-        /* Middle Floating Overlay Image */
+        .vignette {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.95) 100%);
+        }
+
+        .grain {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3%3Cfilter id="n"%3%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3%3C/filter%3%3Crect width="100%" height="100%" filter="url(%23n)" opacity="0.06"/%3%3C/svg%3%3E');
+        }
+
+        /* BACKGROUND PARTICLES CANVAS */
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* UNIQUE BEAT VISUALIZER: Tricolor Edge Glow */
+        #beat-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            pointer-events: none;
+            box-shadow: inset 0 0 0px 0px rgba(255, 153, 51, 0); /* Initial hidden */
+            transition: box-shadow 0.05s linear; /* Fast response */
+        }
+
+        /* MIDDLE LOGO - Larger, Stable, Floating */
         .middle-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             pointer-events: none;
         }
 
         .middle-img {
-            max-width: 65vw;
-            max-height: 50vh;
+            max-width: 90vw; /* 50% larger than before (was 60vw) */
+            max-height: 75vh; /* 50% larger than before (was 50vh) */
             object-fit: contain;
-            filter: drop-shadow(0px 10px 30px rgba(0, 0, 0, 0.9));
-            animation: floatAndPulse 4s ease-in-out infinite;
+            filter: drop-shadow(0px 15px 40px rgba(0, 0, 0, 1));
+            animation: floating 6s ease-in-out infinite; /* Stable floating, no pulsing */
         }
 
-        @keyframes floatAndPulse {
-            0% {
-                transform: scale(0.96) translateY(0px);
-            }
-            50% {
-                transform: scale(1.04) translateY(-12px);
-            }
-            100% {
-                transform: scale(0.96) translateY(0px);
-            }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        /* Tricolor Real-Time Beat Visualizer */
-        #visualizer-canvas {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 180px;
-            z-index: 15;
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
 
+    <!-- START OVERLAY -->
     <div id="start-overlay" onclick="startExperience()">
-        <h1>स्वतंत्रता दिवस की हार्दिक शुभकामनाएं</h1>
-        <button class="play-btn">▶ Click to Play Experience</button>
+        <p>A Cinematic Tribute</p>
+        <h1>स्वतंत्रता दिवस</h1>
+        <p>15 August 2026</p>
+        <button class="play-btn">Begin Experience</button>
     </div>
 
+    <!-- Background Audio -->
     <audio id="bg-audio" src="independenceday.mp3" loop></audio>
 
-    <div class="slideshow-wrapper">
-        <div class="slide" style="background-image: url('id1.png');"></div>
-        <div class="slide" style="background-image: url('id2.png');"></div>
-        <div class="slide" style="background-image: url('id3.png');"></div>
-        <div class="slide" style="background-image: url('id4.png');"></div>
-        <div class="slide" style="background-image: url('id5.png');"></div>
+    <!-- Main Container -->
+    <div class="main-wrapper" id="main-content">
+        <!-- Slideshow -->
+        <div class="slideshow-container">
+            <div class="slide" style="background-image: url('id1.png');"></div>
+            <div class="slide" style="background-image: url('id2.png');"></div>
+            <div class="slide" style="background-image: url('id3.png');"></div>
+            <div class="slide" style="background-image: url('id4.png');"></div>
+            <div class="slide" style="background-image: url('id5.png');"></div>
+        </div>
 
-        <div class="vignette"></div>
+        <!-- Static Overlays (Vignette & Grain) -->
+        <div class="overlays">
+            <div class="vignette"></div>
+            <div class="grain"></div>
+        </div>
 
+        <!-- Moving Particles Background -->
+        <canvas id="particles-canvas"></canvas>
+
+        <!-- Unique Beat Visualizer (Edge Glow) -->
+        <div id="beat-glow"></div>
+
+        <!-- Middle Centered Stable Image -->
         <div class="middle-container">
             <img src="20260814_182718.png" alt="Middle Centerpiece" class="middle-img">
         </div>
-
-        <canvas id="visualizer-canvas"></canvas>
     </div>
 
     <script>
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
-        const slideDuration = 6000; // 6 seconds per slide
+        const slideDuration = 7000; // 7 seconds per slide
 
         function changeSlide() {
             slides[currentSlide].classList.remove('active');
@@ -192,34 +253,85 @@
 
         function startExperience() {
             const overlay = document.getElementById('start-overlay');
+            const mainContent = document.getElementById('main-content');
             const audio = document.getElementById('bg-audio');
 
-            // Hide overlay
+            // Fade out overlay, then show content
             overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 800);
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.style.display = 'block';
 
-            // Start Audio
-            audio.play().catch(e => console.log("Audio play error:", e));
+                // Start Slideshow
+                slides[0].classList.add('active');
+                setInterval(changeSlide, slideDuration);
 
-            // Start Slideshow
-            slides[0].classList.add('active');
-            setInterval(changeSlide, slideDuration);
-
-            // Initialize Beat Visualizer
-            initAudioVisualizer(audio);
+                // Start Audio & Visualizers
+                audio.play().catch(e => console.log("Audio play error:", e));
+                initParticleSystem();
+                initUniqueBeatGlow(audio);
+            }, 1200);
         }
 
-        function initAudioVisualizer(audioElement) {
-            const canvas = document.getElementById('visualizer-canvas');
+        // --- BACKGROUND PARTICLE SYSTEM (Normal Moving, Not tied to Beat) ---
+        function initParticleSystem() {
+            const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
-
             canvas.width = window.innerWidth;
-            canvas.height = 180;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const particleCount = 150;
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = Math.random() * 0.5 - 0.25; // Slow horizontal drift
+                    this.speedY = Math.random() * 1 + 0.5; // Slow vertical fall
+                    // Golden/White color mix
+                    this.color = Math.random() > 0.5 ? 'rgba(255, 215, 0, 0.6)' : 'rgba(255, 255, 255, 0.5)';
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    // Reset if out of bounds
+                    if (this.y > canvas.height) this.y = -10;
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                }
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
 
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
-                canvas.height = 180;
+                canvas.height = window.innerHeight;
             });
+        }
+
+        // --- UNIQUE BEAT VISUALIZER (Tricolor Edge Glow) ---
+        function initUniqueBeatGlow(audioElement) {
+            const glowDiv = document.getElementById('beat-glow');
 
             // Web Audio API Context
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -230,44 +342,40 @@
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
 
-            analyser.fftSize = 256;
+            analyser.fftSize = 64; // Small FFT for faster bass detection
             const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
 
-            function render() {
-                requestAnimationFrame(render);
+            function drawGlow() {
+                requestAnimationFrame(drawGlow);
                 analyser.getByteFrequencyData(dataArray);
 
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Analyze Bass frequencies (low index)
+                let bassSum = 0;
+                const bassBins = 8; // Focus on lowest 8 bins
+                for(let i=0; i<bassBins; i++) {
+                    bassSum += dataArray[i];
+                }
+                const averageBass = bassSum / bassBins;
+                const bassIntensity = averageBass / 255; // 0 to 1
 
-                const barWidth = (canvas.width / bufferLength) * 1.5;
-                let x = 0;
-
-                for (let i = 0; i < bufferLength; i++) {
-                    const barHeight = (dataArray[i] / 255) * (canvas.height * 0.9);
-
-                    // Tricolor Gradient: Saffron (Top), White (Middle), Green (Bottom)
-                    const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
-                    gradient.addColorStop(0, '#FF9933'); // Saffron
-                    gradient.addColorStop(0.5, '#FFFFFF'); // White
-                    gradient.addColorStop(1, '#138808'); // Green
-
-                    ctx.fillStyle = gradient;
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = '#FF9933';
-
-                    // Draw rounded bar
-                    ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
-
-                    x += barWidth;
+                if (bassIntensity > 0.4) { // Threshold for beat
+                    const glowSize = bassIntensity * 80; // Up to 80px glow
+                    // Tricolor Gradient Glow: Saffron -> White -> Green
+                    glowDiv.style.boxShadow = `
+                        inset 0 0 ${glowSize}px ${glowSize/2}px rgba(255, 153, 51, ${bassIntensity}),
+                        inset 0 0 ${glowSize*1.5}px ${glowSize}px rgba(255, 255, 255, ${bassIntensity*0.8}),
+                        inset 0 0 ${glowSize*2}px ${glowSize*1.5}px rgba(19, 136, 8, ${bassIntensity*0.6})
+                    `;
+                } else {
+                    glowDiv.style.boxShadow = 'inset 0 0 0px 0px rgba(0,0,0,0)'; // No glow
                 }
             }
 
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-
-            render();
+            drawGlow();
         }
     </script>
 </body>
