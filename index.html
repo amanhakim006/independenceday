@@ -3,37 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>स्वतंत्रता दिवस मुबारक!</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Happy Independence Day</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Start Overlay for Browser Autoplay Policy */
+        #start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: #fff;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+        }
+
+        #start-overlay h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .play-btn {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            color: #fff;
+            background: linear-gradient(45deg, #FF9933, #138808);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.6);
+            transition: transform 0.3s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.08);
+        }
+
+        /* Fullscreen Cinematic Slideshow */
+        .slideshow-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.8s ease-in-out;
+            transform: scale(1);
+        }
+
+        .slide.active {
+            opacity: 1;
+            animation: cinematicZoom 6.5s linear forwards;
+        }
+
+        @keyframes cinematicZoom {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            100% {
+                transform: scale(1.12) translate(-1%, -1%);
+            }
+        }
+
+        /* Dark Vignette Overlay */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.85) 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Middle Floating Overlay Image */
+        .middle-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .middle-img {
+            max-width: 65vw;
+            max-height: 50vh;
+            object-fit: contain;
+            filter: drop-shadow(0px 10px 30px rgba(0, 0, 0, 0.9));
+            animation: floatAndPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAndPulse {
+            0% {
+                transform: scale(0.96) translateY(0px);
+            }
+            50% {
+                transform: scale(1.04) translateY(-12px);
+            }
+            100% {
+                transform: scale(0.96) translateY(0px);
+            }
+        }
+
+        /* Tricolor Real-Time Beat Visualizer */
+        #visualizer-canvas {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            z-index: 15;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="slideshow-container">
-        <div class="mySlides fade">
-            <img src="id1.png" alt="ID1">
-        </div>
-        <div class="mySlides fade">
-            <img src="id2.png" alt="ID2">
-        </div>
-        <div class="mySlides fade">
-            <img src="id3.png" alt="ID3">
-        </div>
-        <div class="mySlides fade">
-            <img src="id4.png" alt="ID4">
-        </div>
-        <div class="mySlides fade">
-            <img src="id5.png" alt="ID5">
-        </div>
 
-        <!-- Add middle image with animation -->
-        <img src="20260814_182718.png" alt="Middle Image" class="middle-image">
+    <div id="start-overlay" onclick="startExperience()">
+        <h1>स्वतंत्रता दिवस की हार्दिक शुभकामनाएं</h1>
+        <button class="play-btn">▶ Click to Play Experience</button>
     </div>
 
-    <!-- Background audio -->
-    <audio id="bg-audio" src="independenceday.mp3" preload="auto"></audio>
+    <audio id="bg-audio" src="independenceday.mp3" loop></audio>
 
-    <!-- Beats graph (optional) -->
-    <div class="beats-graph"></div>
+    <div class="slideshow-wrapper">
+        <div class="slide" style="background-image: url('id1.png');"></div>
+        <div class="slide" style="background-image: url('id2.png');"></div>
+        <div class="slide" style="background-image: url('id3.png');"></div>
+        <div class="slide" style="background-image: url('id4.png');"></div>
+        <div class="slide" style="background-image: url('id5.png');"></div>
 
-    <script src="script.js"></script>
+        <div class="vignette"></div>
+
+        <div class="middle-container">
+            <img src="20260814_182718.png" alt="Middle Centerpiece" class="middle-img">
+        </div>
+
+        <canvas id="visualizer-canvas"></canvas>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const slideDuration = 6000; // 6 seconds per slide
+
+        function changeSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function startExperience() {
+            const overlay = document.getElementById('start-overlay');
+            const audio = document.getElementById('bg-audio');
+
+            // Hide overlay
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 800);
+
+            // Start Audio
+            audio.play().catch(e => console.log("Audio play error:", e));
+
+            // Start Slideshow
+            slides[0].classList.add('active');
+            setInterval(changeSlide, slideDuration);
+
+            // Initialize Beat Visualizer
+            initAudioVisualizer(audio);
+        }
+
+        function initAudioVisualizer(audioElement) {
+            const canvas = document.getElementById('visualizer-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = 180;
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = 180;
+            });
+
+            // Web Audio API Context
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const audioCtx = new AudioContext();
+            const analyser = audioCtx.createAnalyser();
+
+            const source = audioCtx.createMediaElementSource(audioElement);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+
+            analyser.fftSize = 256;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function render() {
+                requestAnimationFrame(render);
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 1.5;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = (dataArray[i] / 255) * (canvas.height * 0.9);
+
+                    // Tricolor Gradient: Saffron (Top), White (Middle), Green (Bottom)
+                    const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
+                    gradient.addColorStop(0, '#FF9933'); // Saffron
+                    gradient.addColorStop(0.5, '#FFFFFF'); // White
+                    gradient.addColorStop(1, '#138808'); // Green
+
+                    ctx.fillStyle = gradient;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#FF9933';
+
+                    // Draw rounded bar
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+
+                    x += barWidth;
+                }
+            }
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            render();
+        }
+    </script>
 </body>
 </html>
